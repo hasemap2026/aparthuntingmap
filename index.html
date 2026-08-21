@@ -45,12 +45,12 @@
         <script src="data/CurrentStudents_6.js"></script>
         <script src="data/ElementarySchool_7.js"></script>
         <script src="data/Foodmarket_8.js"></script>
-        <script src="data/VacantSingleRoom_9.js"></script>
-        <script src="data/VacantFamilyRoom_10.js"></script>
+        <script src="data/VacantFamilyRoom_9.js"></script>
+        <script src="data/VacantSingleRoom_10.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[36.085216949827256,140.0127057110243],[36.151698783417885,140.20056889131055]]);
+        }).fitBounds([[36.09949312792581,140.01555877334172],[36.16596287696314,140.17818332543533]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/qgis2web/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -639,7 +639,77 @@
         });
         bounds_group.addLayer(layer_Foodmarket_8);
         map.addLayer(layer_Foodmarket_8);
-        function pop_VacantSingleRoom_9(feature, layer) {
+        function pop_VacantFamilyRoom_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Web'] !== null ? autolinker.link(String(feature.properties['Web']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address'] !== null ? autolinker.link(String(feature.properties['Address']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(String(feature.properties['Latitude']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(String(feature.properties['Longitude']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Rent+Common Servicefee'] !== null ? autolinker.link(String(feature.properties['Rent+Common Servicefee']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Availability'] !== null ? autolinker.link(String(feature.properties['Availability']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Security, memo'] !== null ? autolinker.link(String(feature.properties['Security, memo']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_VacantFamilyRoom_9_0() {
+            return {
+                pane: 'pane_VacantFamilyRoom_9',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,123,182,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_VacantFamilyRoom_9');
+        map.getPane('pane_VacantFamilyRoom_9').style.zIndex = 409;
+        map.getPane('pane_VacantFamilyRoom_9').style['mix-blend-mode'] = 'normal';
+        var layer_VacantFamilyRoom_9 = new L.geoJson(json_VacantFamilyRoom_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_VacantFamilyRoom_9',
+            layerName: 'layer_VacantFamilyRoom_9',
+            pane: 'pane_VacantFamilyRoom_9',
+            onEachFeature: pop_VacantFamilyRoom_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_VacantFamilyRoom_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_VacantFamilyRoom_9);
+        map.addLayer(layer_VacantFamilyRoom_9);
+        function pop_VacantSingleRoom_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -667,9 +737,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_VacantSingleRoom_9_0() {
+        function style_VacantSingleRoom_10_0() {
             return {
-                pane: 'pane_VacantSingleRoom_9',
+                pane: 'pane_VacantSingleRoom_10',
                 radius: 8.0,
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
@@ -683,93 +753,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_VacantSingleRoom_9');
-        map.getPane('pane_VacantSingleRoom_9').style.zIndex = 409;
-        map.getPane('pane_VacantSingleRoom_9').style['mix-blend-mode'] = 'normal';
-        var layer_VacantSingleRoom_9 = new L.geoJson(json_VacantSingleRoom_9, {
+        map.createPane('pane_VacantSingleRoom_10');
+        map.getPane('pane_VacantSingleRoom_10').style.zIndex = 410;
+        map.getPane('pane_VacantSingleRoom_10').style['mix-blend-mode'] = 'normal';
+        var layer_VacantSingleRoom_10 = new L.geoJson(json_VacantSingleRoom_10, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_VacantSingleRoom_9',
-            layerName: 'layer_VacantSingleRoom_9',
-            pane: 'pane_VacantSingleRoom_9',
-            onEachFeature: pop_VacantSingleRoom_9,
+            dataVar: 'json_VacantSingleRoom_10',
+            layerName: 'layer_VacantSingleRoom_10',
+            pane: 'pane_VacantSingleRoom_10',
+            onEachFeature: pop_VacantSingleRoom_10,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_VacantSingleRoom_9_0(feature));
+                return L.circleMarker(latlng, style_VacantSingleRoom_10_0(feature));
             },
         });
-        bounds_group.addLayer(layer_VacantSingleRoom_9);
-        map.addLayer(layer_VacantSingleRoom_9);
-        function pop_VacantFamilyRoom_10(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Web'] !== null ? autolinker.link(String(feature.properties['Web']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Address'] !== null ? autolinker.link(String(feature.properties['Address']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Latitude'] !== null ? autolinker.link(String(feature.properties['Latitude']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Longitude'] !== null ? autolinker.link(String(feature.properties['Longitude']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Rent+Common Servicefee'] !== null ? autolinker.link(String(feature.properties['Rent+Common Servicefee']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Memo'] !== null ? autolinker.link(String(feature.properties['Memo']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_VacantFamilyRoom_10_0() {
-            return {
-                pane: 'pane_VacantFamilyRoom_10',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(50,87,128,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(72,123,182,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_VacantFamilyRoom_10');
-        map.getPane('pane_VacantFamilyRoom_10').style.zIndex = 410;
-        map.getPane('pane_VacantFamilyRoom_10').style['mix-blend-mode'] = 'normal';
-        var layer_VacantFamilyRoom_10 = new L.geoJson(json_VacantFamilyRoom_10, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_VacantFamilyRoom_10',
-            layerName: 'layer_VacantFamilyRoom_10',
-            pane: 'pane_VacantFamilyRoom_10',
-            onEachFeature: pop_VacantFamilyRoom_10,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_VacantFamilyRoom_10_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_VacantFamilyRoom_10);
-        map.addLayer(layer_VacantFamilyRoom_10);
+        bounds_group.addLayer(layer_VacantSingleRoom_10);
+        map.addLayer(layer_VacantSingleRoom_10);
         setBounds();
         </script>        
     </body>
